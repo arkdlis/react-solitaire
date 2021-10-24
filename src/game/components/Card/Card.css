@@ -1,0 +1,14 @@
+.card {
+  display: flex;
+  border: 1px solid #000;
+  border-radius: 4px;
+  width: 50px;
+  height: 80px;
+  background: white;
+  cursor: pointer;
+  user-select: none;
+}
+
+.card--red {
+  color: red;
+}

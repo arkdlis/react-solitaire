@@ -1,0 +1,8 @@
+
+.card-pile-row {
+  display: flex;
+}
+
+.card-pile-row > * {
+  margin: 10px;
+}
