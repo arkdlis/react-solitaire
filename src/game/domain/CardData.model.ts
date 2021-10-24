@@ -2,6 +2,8 @@ export interface CardData {
   id: string;
   symbol: CardSymbol;
   value: CardValue;
+  revealed: boolean;
+  cardOnTop?: CardData;
 }
 
 export enum CardSymbol {
@@ -22,7 +24,7 @@ export enum CardValue {
   eight,
   nine,
   ten,
-  jester,
+  jack,
   queen,
   king
 };

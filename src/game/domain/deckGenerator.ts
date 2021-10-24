@@ -8,6 +8,7 @@ export function deckGenerator(): CardData[] {
         id: cardValueSignsMap[sign] + symbol,
         symbol: symbol,
         value: sign,
+        revealed: false,
       };
     });
     return acc.concat(cardsOfSymbol);

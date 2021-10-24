@@ -1,0 +1,8 @@
+.card-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-layout .card-layout-item {
+  height: 20px;
+}

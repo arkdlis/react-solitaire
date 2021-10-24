@@ -12,7 +12,7 @@ export const cardValues = [
   CardValue.eight,
   CardValue.nine,
   CardValue.ten,
-  CardValue.jester,
+  CardValue.jack,
   CardValue.queen,
   CardValue.king,
 ];
@@ -35,7 +35,7 @@ export const cardValueSignsMap = {
   [CardValue.eight]: '8',
   [CardValue.nine]: '9',
   [CardValue.ten]: '10',
-  [CardValue.jester]: 'J',
+  [CardValue.jack]: 'J',
   [CardValue.queen]: 'Q',
   [CardValue.king]: 'K',
 }
@@ -49,13 +49,19 @@ export function isCardBlack(symbol: CardSymbol) {
 }
 
 export function canPutCardOnPile(card: CardData, target: CardData) {
+  const bothRevealed = card.revealed && target.revealed;
   const isCardValueOneLower = +card.value + 1 === +target.value;
-  const isCardOppositeColor = isCardRed(card.symbol) === isCardRed(target.symbol);
-  return isCardValueOneLower && isCardOppositeColor;
+  const isCardOppositeColor = isCardRed(card.symbol) !== isCardRed(target.symbol);
+  return bothRevealed && isCardValueOneLower && isCardOppositeColor;
 }
 
 export function canPutCardOnStack(card: CardData, target: CardData) {
+  const bothRevealed = card.revealed && target.revealed;
   const isCardValueOneHigher = +card.value === +target.value + 1;
   const isCardSameSymbol = card.symbol === target.symbol;
-  return isCardValueOneHigher && isCardSameSymbol;
+  return bothRevealed && isCardValueOneHigher && isCardSameSymbol;
+}
+
+export function revealCard(card: CardData) {
+  card.revealed = true;
 }
