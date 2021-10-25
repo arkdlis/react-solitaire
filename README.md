@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Solitaire
+
+Popular solitaire game (Klondike). Implemented with React, React DnD and Redux.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
