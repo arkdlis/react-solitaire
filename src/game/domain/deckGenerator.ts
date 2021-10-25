@@ -1,8 +1,8 @@
 import { CardData, CardValue } from "./CardData.model";
-import { cardSigns, cardValues, cardValueSignsMap } from "./CardData.utils";
+import { cardSymbols, cardValues, cardValueSignsMap } from "./CardData.utils";
 
 export function deckGenerator(): CardData[] {
-  return cardSigns.reduce<CardData[]>((acc, symbol) => {
+  return cardSymbols.reduce<CardData[]>((acc, symbol) => {
     const cardsOfSymbol = cardValues.map<CardData>((sign: CardValue) => {
       return {
         id: cardValueSignsMap[sign] + symbol,
@@ -24,7 +24,7 @@ function shuffle<T>(array: T[]) {
   let currentIndex = array.length,  randomIndex;
 
   // While there remain elements to shuffle...
-  while (currentIndex != 0) {
+  while (currentIndex !== 0) {
 
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);

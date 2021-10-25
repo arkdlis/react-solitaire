@@ -1,10 +1,18 @@
 import React from 'react';
-import { useAppSelector } from '../../store/hooks';
+import { actions } from '../../store/gameSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import './GameControl.css';
 
 export function GameControl() {
+  const dispatch  = useAppDispatch();
   const movesCounter = useAppSelector((state) => state.game.movesCounter);
+
+  const restart = () => dispatch(actions.restart())
   
   return (
-    <div>Moves: {movesCounter}</div>
+    <div className='game-control-bar'>
+      <button onClick={restart}>restart</button>
+      <div>Moves: {movesCounter}</div>
+    </div>
   )
 }

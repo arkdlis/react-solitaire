@@ -5,4 +5,5 @@
 
 .card-layout .card-layout-item {
   height: 20px;
+  cursor: pointer;
 }

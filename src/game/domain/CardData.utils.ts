@@ -17,7 +17,7 @@ export const cardValues = [
   CardValue.king,
 ];
 
-export const cardSigns = [
+export const cardSymbols = [
   CardSymbol.clubs,
   CardSymbol.spades,
   CardSymbol.hearts,
@@ -62,6 +62,4 @@ export function canPutCardOnStack(card: CardData, target: CardData) {
   return bothRevealed && isCardValueOneHigher && isCardSameSymbol;
 }
 
-export function revealCard(card: CardData) {
-  card.revealed = true;
-}
+export const isKing = (item: CardData) => item.value === CardValue.king

@@ -1,48 +1,28 @@
 import React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { Provider } from 'react-redux';
-import { CardSymbol, CardValue } from '../../domain/CardData.model';
-import { store } from '../../store/store';
-import CardDraggable from '../CardDraggable/CardDraggable';
+import { useAppSelector } from '../../store/hooks';
+import { selectGame } from '../../store/selectors';
 import { GameControl } from '../GameControl/GameControl';
-import PileWell from '../PileWell/PileWell';
+import Pile from '../Pile/Pile';
 import './Game.css';
 
 function Game(props: any) {
-  const card = {
-    id: '2',
-    symbol: CardSymbol.hearts,
-    value: CardValue.queen,
-    revealed: true,
-    cardOnTop: {
-      id: '3',
-      symbol: CardSymbol.clubs,
-      value: CardValue.jack,
-      revealed: true,
-    }
-  };
-  const card2 = {
-    id: 'K',
-    symbol: CardSymbol.spades,
-    value: CardValue.king,
-    revealed: true,
-  };
+  const gameState = useAppSelector(selectGame);
 
   return (
-    <Provider store={store}>
-      <DndProvider backend={HTML5Backend}>
-        <GameControl/>
-        <div className="card-pile-row">
-          <CardDraggable card={card}/>
-          <CardDraggable card={card2}/>
-          <PileWell/>
-          <PileWell/>
-          <PileWell/>
-          <PileWell/>
-        </div>
-      </DndProvider>
-    </Provider>
+    <DndProvider backend={HTML5Backend}>
+      <GameControl/>
+      <div className="card-pile-row">
+        <Pile id={'0'} card={gameState.piles['0']}/>
+        <Pile id={'1'} card={gameState.piles['1']}/>
+        <Pile id={'2'} card={gameState.piles['2']}/>
+        <Pile id={'3'} card={gameState.piles['3']}/>
+        <Pile id={'4'} card={gameState.piles['4']}/>
+        <Pile id={'5'} card={gameState.piles['5']}/>
+        <Pile id={'6'} card={gameState.piles['6']}/>
+      </div>
+    </DndProvider>
   );
 }
 

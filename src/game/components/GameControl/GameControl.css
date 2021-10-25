@@ -1,0 +1,7 @@
+.game-control-bar {
+  display: flex;
+}
+
+.game-control-bar > * {
+  margin: 10px;
+}
