@@ -1,4 +1,4 @@
-import { CardData } from "../domain/CardData.model";
+import { CardData, CardValue } from "../domain/CardData.model";
 import { cardArrayToStock } from "../domain/CardData.utils";
 import { deckGenerator, deckShuffle } from "../domain/deckGenerator";
 import { GameState } from "./GameState.model";
@@ -38,21 +38,36 @@ export function moveCardById(state: GameState, cardId: string, targetId: string)
       if (state.piles[i]!.id === cardId) {
         matchRef = state.piles[i];
         state.piles[i] = undefined;
+        break;
       } else {
         traversePileAndTake(state.piles[i] as CardData);
       }
     }
   }
+
+  if (!matchRef)
   for (let i of Object.keys(state.foundations)) {
     if (state.foundations[i]) {
       if (state.foundations[i]!.id === cardId) {
         matchRef = state.foundations[i];
         state.foundations[i] = undefined;
+        break;
       } else {
         traversePileAndTake(state.foundations[i] as CardData);
       }
     }
   }
+
+  if (!matchRef)
+  for(let i = 0; i < state.waste.length; i++) {
+    const card = state.waste[i];
+    if (card.id === cardId) {
+      matchRef = card;
+      state.waste.splice(i, 1);
+      break;
+    }
+  }
+
   // ... and put it in target place
   for (let i of Object.keys(state.piles)) {
     if (i === targetId) {
@@ -106,3 +121,30 @@ export function reveal(state: GameState, cardId: string) {
   }
 }
 
+export function draw(state: GameState) {
+  if (state.stock.length) {
+    const card = state.stock.shift() as CardData; // force CardData to be not undefines, we are checking if it exists in conditional above
+    state.waste.push({...card, revealed: true});
+  } else {
+    state.stock = state.waste.map(card => ({...card, revealed: false}));
+    state.waste = [];
+  }
+}
+
+export function checkWin(state: GameState) {
+  const traversePile = (node: CardData | undefined): boolean => {
+    if (node) {
+      if (!node.cardOnTop) {
+        return node.value === CardValue.king;
+      } else {
+        return traversePile(node.cardOnTop);
+      }
+    } else {
+      return false;
+    }
+  }
+
+  return Object.keys(state.foundations).reduce((acc, currentKey) => {
+    return acc && traversePile(state.foundations[currentKey]);
+  }, true);
+}

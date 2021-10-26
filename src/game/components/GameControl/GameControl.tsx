@@ -6,6 +6,7 @@ import './GameControl.css';
 export function GameControl() {
   const dispatch  = useAppDispatch();
   const movesCounter = useAppSelector((state) => state.game.movesCounter);
+  const gameEnded = useAppSelector((state) => state.game.gameEnded);
 
   const restart = () => dispatch(actions.restart())
   
@@ -13,6 +14,7 @@ export function GameControl() {
     <div className='game-control-bar'>
       <button onClick={restart}>restart</button>
       <div>Moves: {movesCounter}</div>
+      <div>{gameEnded ? "You win!" : null}</div>
     </div>
   )
 }

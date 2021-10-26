@@ -1,0 +1,31 @@
+.deck-container {
+  display: flex;
+}
+
+.deck-container > * {
+  margin: 10px;
+}
+
+.deck-placeholder {
+  box-sizing: border-box;
+  border: 1px dashed #000;
+  opacity: 0.4;
+  border-radius: 4px;
+  width: 50px;
+  height: 80px;
+  background: inherit;
+  z-index: -1;
+}
+
+.no-click {
+  pointer-events: none;
+}
+
+.deck-waste {
+  display: flex;
+  flex-direction: column;
+}
+
+.deck-waste-stacked {
+  height: 0;
+}

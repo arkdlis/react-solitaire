@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { CardData } from '../../domain/CardData.model';
 import { isCardRed, cardValueSignsMap, isCardBlack } from '../../domain/CardData.utils';
+
 import './Card.css';
 
 export interface CardProps {

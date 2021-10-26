@@ -65,10 +65,11 @@ export function canPutCardOnPile(card: CardData, target: CardData) {
 }
 
 export function canPutCardOnFoundation(card: CardData, target: CardData) {
+  const hasNotCardOnTop = !card.cardOnTop;
   const bothRevealed = card.revealed && target.revealed;
   const isCardValueOneHigher = +card.value === +target.value + 1;
   const isCardSameSymbol = card.symbol === target.symbol;
-  return bothRevealed && isCardValueOneHigher && isCardSameSymbol;
+  return hasNotCardOnTop && bothRevealed && isCardValueOneHigher && isCardSameSymbol;
 }
 
 export const isKing = (item: CardData) => item.value === CardValue.king;

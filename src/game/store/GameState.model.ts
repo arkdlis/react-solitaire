@@ -21,4 +21,5 @@ export interface GameState {
   stock: CardData[];
   waste: CardData[];
   movesCounter: number;
+  gameEnded: boolean;
 }

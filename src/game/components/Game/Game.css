@@ -3,12 +3,17 @@
   padding: 20px;
 }
 
+.top-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .card-pile-row {
   display: flex;
 }
 
 .card-pile-row > * {
-  margin: 10px;
+  margin: 20px 10px;
 }
 
 .card-pile-row.card-pile-row--foundation {
