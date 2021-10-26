@@ -4,23 +4,32 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useAppSelector } from '../../store/hooks';
 import { selectGame } from '../../store/selectors';
 import { GameControl } from '../GameControl/GameControl';
+import Foundation from '../Pile/Foundation';
 import Pile from '../Pile/Pile';
 import './Game.css';
 
 function Game(props: any) {
   const gameState = useAppSelector(selectGame);
-
+  
   return (
     <DndProvider backend={HTML5Backend}>
-      <GameControl/>
-      <div className="card-pile-row">
-        <Pile id={'0'} card={gameState.piles['0']}/>
-        <Pile id={'1'} card={gameState.piles['1']}/>
-        <Pile id={'2'} card={gameState.piles['2']}/>
-        <Pile id={'3'} card={gameState.piles['3']}/>
-        <Pile id={'4'} card={gameState.piles['4']}/>
-        <Pile id={'5'} card={gameState.piles['5']}/>
-        <Pile id={'6'} card={gameState.piles['6']}/>
+      <div className="tableau">
+        <GameControl/>
+        <div className="card-pile-row card-pile-row--foundation">
+          <Foundation id={'f0'} card={gameState.foundations['f0']}/>
+          <Foundation id={'f1'} card={gameState.foundations['f1']}/>
+          <Foundation id={'f2'} card={gameState.foundations['f2']}/>
+          <Foundation id={'f3'} card={gameState.foundations['f3']}/>
+        </div>
+        <div className="card-pile-row">
+          <Pile id={'p0'} card={gameState.piles['p0']}/>
+          <Pile id={'p1'} card={gameState.piles['p1']}/>
+          <Pile id={'p2'} card={gameState.piles['p2']}/>
+          <Pile id={'p3'} card={gameState.piles['p3']}/>
+          <Pile id={'p4'} card={gameState.piles['p4']}/>
+          <Pile id={'p5'} card={gameState.piles['p5']}/>
+          <Pile id={'p6'} card={gameState.piles['p6']}/>
+        </div>
       </div>
     </DndProvider>
   );

@@ -3,19 +3,20 @@ import { CardData } from "../domain/CardData.model";
 export interface GameState {
   piles: {
     [key: string]: CardData | undefined;
-    '0'?: CardData;
-    '1'?: CardData;
-    '2'?: CardData;
-    '3'?: CardData;
-    '4'?: CardData;
-    '5'?: CardData;
-    '6'?: CardData;
+    p0?: CardData;
+    p1?: CardData;
+    p2?: CardData;
+    p3?: CardData;
+    p4?: CardData;
+    p5?: CardData;
+    p6?: CardData;
   };
   foundations: {
-    0?: CardData;
-    1?: CardData;
-    2?: CardData;
-    3?: CardData;
+    [key: string]: CardData | undefined;
+    f0?: CardData;
+    f1?: CardData;
+    f2?: CardData;
+    f3?: CardData;
   };
   stock: CardData[];
   waste: CardData[];

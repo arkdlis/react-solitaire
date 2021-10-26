@@ -7,3 +7,8 @@
   height: 20px;
   cursor: pointer;
 }
+
+
+.card-layout .card-layout-item.card-layout-item--stacked {
+  height: 0;
+}

@@ -1,7 +1,15 @@
-.pile {
-  border: 1px solid #000;
+.container {
+  position: relative;
+}
+
+.card-placeholder {
+  position: absolute;
+  z-index: -1;
+  box-sizing: border-box;
+  border: 1px dashed #000;
+  opacity: 0.4;
   border-radius: 4px;
   width: 50px;
   height: 80px;
-  background: yellowgreen;
+  background: inherit;
 }

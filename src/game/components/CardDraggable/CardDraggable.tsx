@@ -6,23 +6,23 @@ import { CardData } from '../../domain/CardData.model';
 import Card from '../Card/Card';
 import DropZone from '../DropZone/DropZone';
 import { ItemTypes } from '../item.constants';
-import { canPutCardOnPile } from '../../domain/CardData.utils';
 import './CardDraggable.css';
 import classNames from 'classnames';
 
 export interface CardDraggableProps {
   card: CardData;
+  canPutCardOnCard: (card: CardData, target: CardData) => boolean;
+  stacked?: boolean;
 }
 
-function CardDraggable({ card }: CardDraggableProps) {
+function CardDraggable({ card, ...pileProps }: CardDraggableProps) {
   const dispatch  = useAppDispatch();
 
-  const [{ isDragging, isSomethingDragging }, drag] = useDrag(() => ({
+  const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.CARD,
     item: card,
     canDrag: () => card.revealed,
     collect: (monitor) => ({
-      isSomethingDragging: !!monitor.getClientOffset(),
       isDragging: monitor.isDragging()
     })
   }), [card]);
@@ -32,8 +32,8 @@ function CardDraggable({ card }: CardDraggableProps) {
     [card]
   );
   const canDropPredicate = useCallback(
-    (item: CardData) => canPutCardOnPile(item, card),
-    [card]
+    (item: CardData) => pileProps.canPutCardOnCard(item, card),
+    [card, pileProps.canPutCardOnCard]
   );
   const onClickHandler = useCallback(
     () => {
@@ -50,13 +50,18 @@ function CardDraggable({ card }: CardDraggableProps) {
       style={{ opacity: isDragging ? 0 : 1}}
       onClick={onClickHandler}
     >
-      <div className="card-layout-item">
+      <div className={
+        classNames({
+          'card-layout-item': true,
+          'card-layout-item--stacked': pileProps.stacked
+        })
+      }>
         <Card card={card}/>
       </div>
       <div className="card-layout-item">
         {
           card.cardOnTop
-          ? <CardDraggable card={card.cardOnTop}/>
+          ? <CardDraggable card={card.cardOnTop} {...pileProps}/>
           : <DropZone onDropHandler={onDropHandler} canDropPredicate={canDropPredicate}/>
         }
       </div>

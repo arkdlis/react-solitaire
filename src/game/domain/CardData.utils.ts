@@ -40,6 +40,15 @@ export const cardValueSignsMap = {
   [CardValue.king]: 'K',
 }
 
+export function cardArrayToStock(cards: CardData[]) {
+  if (!cards.length) throw Error('CardData[] can not be empty');
+  const firstCard = cards.shift() as CardData;
+  return cards.reduce((prevCard, nextCard) => {
+    nextCard.cardOnTop = prevCard;
+    return nextCard;
+  }, firstCard);
+}
+
 export function isCardRed(symbol: CardSymbol) {
   return [CardSymbol.diamonds, CardSymbol.hearts].includes(symbol);
 }
@@ -55,11 +64,12 @@ export function canPutCardOnPile(card: CardData, target: CardData) {
   return bothRevealed && isCardValueOneLower && isCardOppositeColor;
 }
 
-export function canPutCardOnStack(card: CardData, target: CardData) {
+export function canPutCardOnFoundation(card: CardData, target: CardData) {
   const bothRevealed = card.revealed && target.revealed;
   const isCardValueOneHigher = +card.value === +target.value + 1;
   const isCardSameSymbol = card.symbol === target.symbol;
   return bothRevealed && isCardValueOneHigher && isCardSameSymbol;
 }
 
-export const isKing = (item: CardData) => item.value === CardValue.king
+export const isKing = (item: CardData) => item.value === CardValue.king;
+export const isAce = (item: CardData) => item.value === CardValue.ace;

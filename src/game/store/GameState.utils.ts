@@ -1,59 +1,71 @@
 import { CardData } from "../domain/CardData.model";
+import { cardArrayToStock } from "../domain/CardData.utils";
 import { deckGenerator, deckShuffle } from "../domain/deckGenerator";
 import { GameState } from "./GameState.model";
-
-export function cardArrayToStock(cards: CardData[]) {
-  if (!cards.length) throw Error('CardData[] can not be empty');
-  const firstCard = cards.shift() as CardData;
-  return cards.reduce((prevCard, nextCard) => {
-    nextCard.cardOnTop = prevCard;
-    return nextCard;
-  }, firstCard);
-}
 
 export function moveCardById(state: GameState, cardId: string, targetId: string): any {
   let matchRef: CardData | undefined;
 
-  // recursively walks through pile; in case of match, sets matchRef by closure and remove matched card as side effect;
-  const traversePileTake = (node: CardData) => {
+  // closure fun with matchRef; recursively walks through pile; in case of match, sets matchRef and remove matched card as side effect;
+  const traversePileAndTake = (node: CardData) => {
     if (node.cardOnTop) {
       if (node.cardOnTop.id === cardId) {
         matchRef = node.cardOnTop;
         node.cardOnTop = undefined;
       } else {
-        traversePileTake(node.cardOnTop);
+        traversePileAndTake(node.cardOnTop);
       }
     }
   }
 
-  const traversePilePut = (node: CardData | undefined) => {
+  // closure fun with matchRef; recursively walks through pile; in case of match, put matchRef in target;
+  const traversePileAndPut = (node: CardData | undefined) => {
     if (node) {
       if (node.id === targetId ) {
         if (node.cardOnTop !== undefined) throw Error('There is already a card on top!');
         node.cardOnTop = matchRef;
       } else {
-        traversePilePut(node.cardOnTop);
+        traversePileAndPut(node.cardOnTop);
       }
     }
   }
 
-  // TODO: add stacks and waste
+  // TODO: add waste
 
+  // take card...
   for (let i of Object.keys(state.piles)) {
     if (state.piles[i]) {
       if (state.piles[i]!.id === cardId) {
         matchRef = state.piles[i];
         state.piles[i] = undefined;
       } else {
-        traversePileTake(state.piles[i] as CardData);
+        traversePileAndTake(state.piles[i] as CardData);
       }
     }
   }
+  for (let i of Object.keys(state.foundations)) {
+    if (state.foundations[i]) {
+      if (state.foundations[i]!.id === cardId) {
+        matchRef = state.foundations[i];
+        state.foundations[i] = undefined;
+      } else {
+        traversePileAndTake(state.foundations[i] as CardData);
+      }
+    }
+  }
+  // ... and put it in target place
   for (let i of Object.keys(state.piles)) {
     if (i === targetId) {
       state.piles[i] = matchRef;
     } else {
-      traversePilePut(state.piles[i]);
+      traversePileAndPut(state.piles[i]);
+    }
+  }
+  for (let i of Object.keys(state.foundations)) {
+    if (i === targetId) {
+      state.foundations[i] = matchRef;
+    } else {
+      traversePileAndPut(state.foundations[i]);
     }
   }
 }
@@ -69,6 +81,13 @@ export function createGame(state: GameState) {
     state.piles[key] = cardArrayToStock(cardsForPile);
     prevIndex = nextIndex;
   });
+
+  state.stock = deck.slice(prevIndex);
+  state.waste = [];
+
+  Object.keys(state.foundations).forEach((key, index) => {
+    state.foundations[key] = undefined;
+  })
 }
 
 export function reveal(state: GameState, cardId: string) {
