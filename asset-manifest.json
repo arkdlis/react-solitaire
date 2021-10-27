@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/react-solitaire/static/css/main.e7710cf8.chunk.css",
+    "main.js": "/react-solitaire/static/js/main.eb092783.chunk.js",
+    "main.js.map": "/react-solitaire/static/js/main.eb092783.chunk.js.map",
+    "runtime-main.js": "/react-solitaire/static/js/runtime-main.bed729c9.js",
+    "runtime-main.js.map": "/react-solitaire/static/js/runtime-main.bed729c9.js.map",
+    "static/js/2.90b6e4e6.chunk.js": "/react-solitaire/static/js/2.90b6e4e6.chunk.js",
+    "static/js/2.90b6e4e6.chunk.js.map": "/react-solitaire/static/js/2.90b6e4e6.chunk.js.map",
+    "static/js/3.e2dcf2a2.chunk.js": "/react-solitaire/static/js/3.e2dcf2a2.chunk.js",
+    "static/js/3.e2dcf2a2.chunk.js.map": "/react-solitaire/static/js/3.e2dcf2a2.chunk.js.map",
+    "index.html": "/react-solitaire/index.html",
+    "static/css/main.e7710cf8.chunk.css.map": "/react-solitaire/static/css/main.e7710cf8.chunk.css.map",
+    "static/js/2.90b6e4e6.chunk.js.LICENSE.txt": "/react-solitaire/static/js/2.90b6e4e6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bed729c9.js",
+    "static/js/2.90b6e4e6.chunk.js",
+    "static/css/main.e7710cf8.chunk.css",
+    "static/js/main.eb092783.chunk.js"
+  ]
+}
