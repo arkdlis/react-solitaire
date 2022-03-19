@@ -2,6 +2,8 @@
 
 Popular solitaire game (Klondike). Implemented with React, React DnD and Redux.
 
+Play here - https://arkdlis.github.io/react-solitaire/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
